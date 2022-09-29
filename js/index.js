@@ -1,23 +1,45 @@
-const dino = document.getElementById("dino");
-const cactus = document.getElementById("cactus");
-const spaseBtn = document.getElementById("spase");
-const startBtn = document.getElementById("start");
-const value = document.getElementById("value");
+const refs = {
+  dino: document.getElementById("dino"),
+  cactus: document.getElementById("cactus"),
+  spaseBtn: document.getElementById("spase"),
+  startBtn: document.getElementById("start"),
+  value: document.getElementById("value"),
+};
 
-spaseBtn.addEventListener("click", onJump);
-startBtn.addEventListener("click", onStartGame);
+refs.spaseBtn.addEventListener("click", onJump);
+refs.startBtn.addEventListener("click", onStartGame);
+
+let gameOver = false;
+let currentValue = (refs.value.textContent = 0);
 
 function onStartGame() {
-  cactus.classList.add("cactusMov");
-  spaseBtn.disabled = false;
+  refs.cactus.classList.add("cactusMov");
+  refs.spaseBtn.disabled = false;
+  onStartTimer();
+}
+
+function onStartTimer() {
+  const setId = setInterval(() => {
+    if (currentValue > 15) {
+      refs.cactus.classList.remove("cactusMov");
+      refs.cactus.classList.add("cactusSpeed");
+    }
+    if (currentValue > 35) {
+      refs.cactus.classList.remove("cactusSpeed");
+      refs.cactus.classList.add("cactusSpeedTwo");
+    }
+    if (gameOver) {
+      clearInterval(setId);
+    }
+  }, 1000);
 }
 
 function onJump() {
-  if (dino.classList != "jump") {
-    dino.classList.add("jump");
+  if (refs.dino.classList != "jump") {
+    refs.dino.classList.add("jump");
   }
   setTimeout(() => {
-    dino.classList.remove("jump");
+    refs.dino.classList.remove("jump");
   }, 300);
 }
 
@@ -32,15 +54,17 @@ let GameOver = setInterval(function () {
   }
 
   if (cactusLeft < 50 && cactusLeft > 0 && dinoTop >= 140) {
-    alert("Game Over");
-    cactus.classList.remove("cactusMov");
+    gameOver = true;
 
-    spaseBtn.disabled = true;
-    value.textContent = 0;
+    alert("Game Over");
+    refs.cactus.classList.remove("cactusMov");
+    refs.cactus.classList.remove("cactusSpeed");
+    refs.cactus.classList.remove("cactusSpeedTwo");
+    refs.spaseBtn.disabled = true;
+    refs.value.textContent = 0;
   }
 }, 10);
 
 function totalValue() {
-  currentValue = value.textContent++;
+  currentValue = refs.value.textContent++;
 }
-let currentValue = 0;

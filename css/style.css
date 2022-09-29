@@ -24,7 +24,14 @@
   top: 112px;
   left: 580px;
 }
-
+.cactusSpeed {
+  background-image: url(../img/cactus.png);
+  animation: cactusSpeed 1.2s infinite linear;
+}
+.cactusSpeedTwo {
+  background-image: url(../img/cactus.png);
+  animation: cactusSpeedTwo 1s infinite linear;
+}
 .cactusMov {
   background-image: url(../img/cactus.png);
   animation: cactusMov 1.4s infinite linear;
@@ -38,6 +45,23 @@
     left: -20px;
   }
 }
+@keyframes cactusSpeed {
+  0% {
+    left: 580px;
+  }
+  100% {
+    left: -20px;
+  }
+}
+@keyframes cactusSpeedTwo {
+  0% {
+    left: 580px;
+  }
+  100% {
+    left: -20px;
+  }
+}
+
 .jump {
   animation: jump 0.3s linear;
 }
